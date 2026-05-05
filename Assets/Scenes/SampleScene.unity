@@ -436,6 +436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 945868045}
   - component: {fileID: 945868046}
+  - component: {fileID: 945868047}
   m_Layer: 0
   m_Name: GridController
   m_TagString: Untagged
@@ -478,6 +479,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ae05a758f313507428ccc5b9a8ee414d, type: 2}
   - {fileID: 11400000, guid: e250da555bcbfc54eb76ceb056407055, type: 2}
   - {fileID: 11400000, guid: f9de50b2226bc734e892099ae6985e18, type: 2}
+--- !u!114 &945868047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945868044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56c8f001dee68aa4e8758adcf1dd3db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

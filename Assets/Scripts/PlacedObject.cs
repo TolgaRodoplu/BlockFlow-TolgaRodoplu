@@ -42,10 +42,9 @@ public class PlacedObject : MonoBehaviour {
     }
 
 
-    public Vector2Int GetOrigin()
-    {
-        return origin;
-    }
+    public Vector2Int GetOrigin() => origin;
+
+    public void SetOrigin(Vector2Int newOrigin) => origin = newOrigin;
 
     public PlacedObjectTypeSO.Dir GetDir()
     {

@@ -67,6 +67,12 @@ public class Grid<TGridObject>
         y = Mathf.FloorToInt((worldPosition - originPosition).y / cellSize);
     }
 
+    public void GetXYRounded(Vector3 worldPosition, out int x, out int y)
+    {
+        x = Mathf.RoundToInt((worldPosition - originPosition).x / cellSize);
+        y = Mathf.RoundToInt((worldPosition - originPosition).y / cellSize);
+    }
+
     public void SetGridObject(int x, int y, TGridObject value)
     {
         if (x >= 0 && y >= 0 && x < width && y < height)

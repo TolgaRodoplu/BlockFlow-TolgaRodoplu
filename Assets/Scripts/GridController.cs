@@ -9,8 +9,6 @@ public class GridController : MonoBehaviour
     private Grid<GridObject> grid;
     [SerializeField] private Transform floorPrefab;
     [SerializeField] private PlacedObjectTypeSO[] placedObjectTypeSO;
-    private PlacedObject currentDragging = null;
-    
     private void Awake()
     {
         Instance = this;
@@ -26,6 +24,8 @@ public class GridController : MonoBehaviour
     {
         SpawnBlock(placedObjectTypeSO[0], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Down);
         SpawnBlock(placedObjectTypeSO[4], new Vector2Int(0, 0), PlacedObjectTypeSO.Dir.Down);
+        
+        SpawnBlock(placedObjectTypeSO[1], new Vector2Int(2, 3), PlacedObjectTypeSO.Dir.Down);
         SpawnBlock(placedObjectTypeSO[3], new Vector2Int(0, 1), PlacedObjectTypeSO.Dir.Down);
     }
 
@@ -61,6 +61,58 @@ public class GridController : MonoBehaviour
             grid.GetGridObject(cell.x, cell.y).SetPlacedObject(placedObject);
 
         return placedObject;
+    }
+
+    public void GetGridXY(Vector3 worldPos, out int x, out int y) => grid.GetXY(worldPos, out x, out y);
+    public void GetGridXYRounded(Vector3 worldPos, out int x, out int y) => grid.GetXYRounded(worldPos, out x, out y);
+
+    public Vector3 GetWorldPosition(int x, int y) => grid.GetWorldPosition(x, y);
+
+    public float GetCellSize() => grid.GetCellSize();
+
+    public void RemoveBlock(PlacedObject block)
+    {
+        foreach (Vector2Int cell in block.GetGridPositionList())
+            grid.GetGridObject(cell.x, cell.y)?.ClearPlacedObject();
+    }
+
+    public bool CanPlaceAt(PlacedObjectTypeSO type, Vector2Int origin, PlacedObjectTypeSO.Dir dir)
+    {
+        List<Vector2Int> cells = type.GetGridPositionList(origin, dir);
+        foreach (Vector2Int cell in cells)
+        {
+            GridObject go = grid.GetGridObject(cell.x, cell.y);
+            if (go == null || go.isOccupied()) return false;
+        }
+        return true;
+    }
+
+    public Vector2Int? GetNearestFreeOrigin(PlacedObjectTypeSO type, Vector2Int target, PlacedObjectTypeSO.Dir dir)
+    {
+        for (int radius = 0; radius <= 4; radius++)
+        {
+            for (int dx = -radius; dx <= radius; dx++)
+            for (int dy = -radius; dy <= radius; dy++)
+            {
+                if (Mathf.Abs(dx) != radius && Mathf.Abs(dy) != radius) continue;
+                Vector2Int candidate = target + new Vector2Int(dx, dy);
+                if (CanPlaceAt(type, candidate, dir)) return candidate;
+            }
+        }
+        return null;
+    }
+
+    public void PlaceExistingBlock(PlacedObject block, Vector2Int newOrigin)
+    {
+        PlacedObjectTypeSO type = block.GetPlacedObjectTypeSO();
+        PlacedObjectTypeSO.Dir dir = block.GetDir();
+        block.SetOrigin(newOrigin);
+        Vector2Int rotOffset = type.GetRotationOffset(dir);
+        Vector3 worldPos = grid.GetWorldPosition(newOrigin.x, newOrigin.y)
+                         + new Vector3(rotOffset.x, rotOffset.y) * grid.GetCellSize();
+        block.transform.position = new Vector3(worldPos.x, worldPos.y, 0f);
+        foreach (Vector2Int cell in block.GetGridPositionList())
+            grid.GetGridObject(cell.x, cell.y)?.SetPlacedObject(block);
     }
 }
 public class GridObject
