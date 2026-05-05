@@ -25,10 +25,9 @@ public class PlacedObject : MonoBehaviour {
         this.dir = dir;
     }
 
-    public PlacedObjectTypeSO GetPlacedObjectTypeSO()
-    {
-        return placedObjectTypeSO;
-    }
+    public PlacedObjectTypeSO GetPlacedObjectTypeSO() => placedObjectTypeSO;
+
+    public PlacedObjectTypeSO.ObjectType GetObjectType() => placedObjectTypeSO.objectType;
 
     
 

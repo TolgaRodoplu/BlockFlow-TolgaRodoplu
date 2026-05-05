@@ -9,6 +9,7 @@ public class GridController : MonoBehaviour
     private Grid<GridObject> grid;
     [SerializeField] private Transform floorPrefab;
     [SerializeField] private PlacedObjectTypeSO[] placedObjectTypeSO;
+    private PlacedObject currentDragging = null;
     
     private void Awake()
     {
@@ -23,10 +24,9 @@ public class GridController : MonoBehaviour
 
     void Start()
     {
-        SpawnBlock(placedObjectTypeSO[0], new Vector2Int(1, 1), PlacedObjectTypeSO.Dir.Down);
-        SpawnBlock(placedObjectTypeSO[1], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Down);
-        
-        SpawnBlock(placedObjectTypeSO[2], new Vector2Int(0, 2), PlacedObjectTypeSO.Dir.Down);
+        SpawnBlock(placedObjectTypeSO[0], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Down);
+        SpawnBlock(placedObjectTypeSO[4], new Vector2Int(0, 0), PlacedObjectTypeSO.Dir.Down);
+        SpawnBlock(placedObjectTypeSO[3], new Vector2Int(0, 1), PlacedObjectTypeSO.Dir.Down);
     }
 
     public void SpawnFloor(Vector3 pos)

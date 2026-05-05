@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 1202621383421430551}
   - component: {fileID: 2740291557628823041}
   - component: {fileID: 4421791873574645703}
+  - component: {fileID: 601282728449949087}
+  - component: {fileID: 6332436732922455106}
   m_Layer: 0
   m_Name: TBlock
   m_TagString: Untagged
@@ -90,6 +92,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93a4501b695e9fd4ca4beefcf3703402, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &601282728449949087
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694481962357673267}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.0404034, y: 1.0110359, z: 1.0383472}
+  m_Center: {x: 1.4944582, y: 0.50182915, z: -0.50810146}
+--- !u!65 &6332436732922455106
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6694481962357673267}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.044117, y: 1.9947624, z: 1.0095863}
+  m_Center: {x: 1.4999714, y: 1.0246525, z: -0.50330734}
 --- !u!1001 &8670707964036754728
 PrefabInstance:
   m_ObjectHideFlags: 0

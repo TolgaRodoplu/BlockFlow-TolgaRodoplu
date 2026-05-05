@@ -26,8 +26,11 @@ public class PlacedObjectTypeSO : ScriptableObject
         Right,
     }
 
+    public enum ObjectType { Block, Wall, ExitDoor }
+
     public string nameString;
     public Transform prefab;
+    public ObjectType objectType;
     public int width;
     public int height;
     public List<Vector2Int> cells;
