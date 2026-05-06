@@ -1,0 +1,16 @@
+{
+  "gridWidth": 5,
+  "gridHeight": 5,
+  "walls": [
+    { "typeName": "WallCorner", "x": 0, "y": 0, "direction": "Down" },
+    { "typeName": "Wall",       "x": 0, "y": 1, "direction": "Down" }
+  ],
+  "grinders": [
+    { "typeName": "Grinder1X", "x": 4, "y": 0, "direction": "Up", "color": "Color1" }
+  ],
+  "blocks": [
+    { "typeName": "SingleBlock", "x": 0, "y": 2, "direction": "Down", "color": "Color1", "iceCounter": 0, "restrictedAxis": "FreezePositionX" },
+    { "typeName": "SingleBlock", "x": 2, "y": 2, "direction": "Down", "color": "Color1", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "TBlock",      "x": 2, "y": 2, "direction": "Left", "color": "Color2", "iceCounter": 0, "restrictedAxis": "None" }
+  ]
+}

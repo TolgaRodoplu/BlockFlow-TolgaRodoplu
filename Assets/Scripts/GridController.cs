@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,25 +11,69 @@ public class GridController : MonoBehaviour
     [SerializeField] private Transform floorPrefab;
     [SerializeField] private PlacedObjectTypeSO[] placedObjectTypeSO;
     [SerializeField] private ColorPalette colorPalette;
+
+    private Dictionary<string, PlacedObjectTypeSO> soByName;
+
     private void Awake()
     {
         Instance = this;
-        
+
+        soByName = new Dictionary<string, PlacedObjectTypeSO>();
+        foreach (var so in placedObjectTypeSO)
+            if (so != null) soByName[so.nameString] = so;
+
         int gridWidth = 5;
         int gridHeight = 5;
         float cellSize = 1f;
         grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, transform.position, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
-        Camera.main.transform.position = new Vector3(gridWidth/2 * cellSize, gridHeight/2 * cellSize, -10f);
+        Camera.main.transform.position = new Vector3(gridWidth / 2 * cellSize, gridHeight / 2 * cellSize, -10f);
     }
 
     void Start()
     {
-        SpawnBlock(placedObjectTypeSO[0], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Down);
-        SpawnBlock(placedObjectTypeSO[4], new Vector2Int(0, 0), PlacedObjectTypeSO.Dir.Down);
-        SpawnBlock(placedObjectTypeSO[1], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Left);
-        SpawnBlock(placedObjectTypeSO[3], new Vector2Int(0, 1), PlacedObjectTypeSO.Dir.Down);
-        SpawnBlock(placedObjectTypeSO[5], new Vector2Int(4, 0), PlacedObjectTypeSO.Dir.Right);
     }
+
+    public void LoadLevel(LevelData data)
+    {
+        foreach (var e in data.walls ?? new PlacedObjectEntry[0])
+            SpawnFromEntry(e);
+
+        foreach (var e in data.grinders ?? new ColoredObjectEntry[0])
+        {
+            PlacedObject po = SpawnFromEntry(e);
+            if (po != null && !string.IsNullOrEmpty(e.color))
+                po.GetComponent<Grinder>()?.SetColor(ParsePaletteColor(e.color));
+        }
+
+        foreach (var e in data.blocks ?? new BlockEntry[0])
+        {
+            PlacedObject po = SpawnFromEntry(e);
+            if (po == null) continue;
+            Block block = po.GetComponent<Block>();
+            if (block == null) continue;
+            if (!string.IsNullOrEmpty(e.color))
+                block.SetColor(ParsePaletteColor(e.color));
+            block.iceCounter = e.iceCounter;
+            if (!string.IsNullOrEmpty(e.restrictedAxis))
+                block.SetConstraints((RigidbodyConstraints)Enum.Parse(typeof(RigidbodyConstraints), e.restrictedAxis));
+        }
+    }
+
+    private PlacedObject SpawnFromEntry(PlacedObjectEntry e)
+    {
+        if (!soByName.TryGetValue(e.typeName, out PlacedObjectTypeSO so))
+        {
+            Debug.LogWarning($"LoadLevel: unknown typeName '{e.typeName}', skipping.");
+            return null;
+        }
+        PlacedObjectTypeSO.Dir dir = PlacedObjectTypeSO.Dir.Down;
+        if (!string.IsNullOrEmpty(e.direction))
+            dir = (PlacedObjectTypeSO.Dir)Enum.Parse(typeof(PlacedObjectTypeSO.Dir), e.direction);
+        return SpawnBlock(so, new Vector2Int(e.x, e.y), dir);
+    }
+
+    private ColorPalette.PaletteColor ParsePaletteColor(string s) =>
+        (ColorPalette.PaletteColor)Enum.Parse(typeof(ColorPalette.PaletteColor), s);
 
     public void SpawnFloor(Vector3 pos)
     {
@@ -76,6 +121,12 @@ public class GridController : MonoBehaviour
             grid.GetGridObject(cell.x, cell.y)?.ClearPlacedObject();
     }
 
+    public void RegisterBlock(PlacedObject block)
+    {
+        foreach (Vector2Int cell in block.GetGridPositionList())
+            grid.GetGridObject(cell.x, cell.y)?.SetPlacedObject(block);
+    }
+
     public bool CanPlaceAt(PlacedObjectTypeSO type, Vector2Int origin, PlacedObjectTypeSO.Dir dir)
     {
         List<Vector2Int> cells = type.GetGridPositionList(origin, dir);
@@ -117,14 +168,12 @@ public class GridController : MonoBehaviour
 }
 public class GridObject
 {
-    private Grid<GridObject> grid; // Reference to parent grid
-    private int x; // Grid X coordinate
-    private int y; // Grid Y coordinate
-    public PlacedObject placedObject; // Building placed on this cell (null if floor)
+    private Grid<GridObject> grid; 
+    private int x; 
+    private int y; 
+    public PlacedObject placedObject; 
 
-    /// <summary>
-    /// Creates a new GridObject for a specific grid position.
-    /// </summary>
+    
     public GridObject(Grid<GridObject> grid, int x, int y)
     {
         this.grid = grid;
@@ -134,14 +183,7 @@ public class GridObject
     }
     public override string ToString() => $"{x}, {y}\n{placedObject}";
 
-    /// <summary>
-    /// Assigns a building to this cell and notifies the grid of the change.
-    /// </summary>
-
-
-    /// <summary>
-    /// Removes the building from this cell and notifies the grid.
-    /// </summary>
+    
     public void SetPlacedObject(PlacedObject placedObject)
     {
         this.placedObject = placedObject;
@@ -155,8 +197,6 @@ public class GridObject
     }
 
 
-    /// <summary>
-    /// Returns true if no building is placed on this cell.
-    /// </summary>
+    
     public bool isOccupied() => placedObject != null;
 }

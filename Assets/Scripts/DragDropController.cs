@@ -4,7 +4,6 @@ public class DragDropController : MonoBehaviour
 {
     [SerializeField] private float followSpeed = 20f;
     private PlacedObject dragging;
-    private Vector2Int originalOrigin;
     private Vector3 dragOffset;
     private Rigidbody dragRb;
     private Vector2Int? checkVect = null;
@@ -24,11 +23,17 @@ public class DragDropController : MonoBehaviour
         target.z = 0f;
         dragRb.velocity = (target - dragRb.position) * followSpeed;
 
-        var newVect = GetValid();
+        GridController.Instance.RemoveBlock(dragging);
 
-        if(newVect != null && newVect != originalOrigin && newVect != checkVect)
+        Vector2Int? newVect = GetValid();
+        Vector2Int targetOrigin = newVect ?? dragging.GetOrigin();
+
+        dragging.SetOrigin(targetOrigin);
+        GridController.Instance.RegisterBlock(dragging);
+
+        if (targetOrigin != checkVect)
         {
-            checkVect = newVect;
+            checkVect = targetOrigin;
             OnPosChanged?.Invoke(this, dragging);
         }
     }
@@ -43,11 +48,8 @@ public class DragDropController : MonoBehaviour
         if (po == null || block == null) return;
 
         dragging = po;
-        originalOrigin = po.GetOrigin();
         dragOffset = po.transform.position - GetMouseWorldPos();
         dragOffset.z = 0f;
-
-        GridController.Instance.RemoveBlock(po);
 
         dragRb = po.gameObject.AddComponent<Rigidbody>();
         dragRb.useGravity = false;
@@ -65,9 +67,8 @@ public class DragDropController : MonoBehaviour
         Destroy(dragRb);
         dragRb = null;
         checkVect = null;
-        var valid = GetValid();
 
-        GridController.Instance.PlaceExistingBlock(dragging, valid ?? originalOrigin);
+        GridController.Instance.PlaceExistingBlock(dragging, dragging.GetOrigin());
         dragging = null;
     }
 

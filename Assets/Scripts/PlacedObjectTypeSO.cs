@@ -25,7 +25,17 @@ public class PlacedObjectTypeSO : ScriptableObject
         Up,
         Right,
     }
-
+    public static Vector2Int RotateVector(Vector2Int v, PlacedObjectTypeSO.Dir dir)
+    {
+        switch (dir)
+        {
+            default:
+            case PlacedObjectTypeSO.Dir.Down: return v;
+            case PlacedObjectTypeSO.Dir.Left: return new Vector2Int(-v.y, v.x);
+            case PlacedObjectTypeSO.Dir.Up: return new Vector2Int(-v.x, -v.y);
+            case PlacedObjectTypeSO.Dir.Right: return new Vector2Int(v.y, -v.x);
+        }
+    }
     public enum ObjectType { Block, Wall, ExitDoor }
 
     public string nameString;
@@ -51,8 +61,6 @@ public class PlacedObjectTypeSO : ScriptableObject
         return maxY + 1;
     }
 
-    // Width and height in world/grid space after rotation.
-    // Left/Right are 90° rotations so they transpose the dimensions.
     public int GetRotatedWidth(Dir dir)
     {
         return (dir == Dir.Left || dir == Dir.Right) ? GetCellsBoundsHeight() : GetCellsBoundsWidth();
@@ -82,9 +90,9 @@ public class PlacedObjectTypeSO : ScriptableObject
         switch (dir)
         {
             default:
-            case Dir.Down:  return new Vector2Int(0, 0);
-            case Dir.Left:  return new Vector2Int(H, 0);
-            case Dir.Up:    return new Vector2Int(W, H);
+            case Dir.Down: return new Vector2Int(0, 0);
+            case Dir.Left: return new Vector2Int(H, 0);
+            case Dir.Up: return new Vector2Int(W, H);
             case Dir.Right: return new Vector2Int(0, W);
         }
     }

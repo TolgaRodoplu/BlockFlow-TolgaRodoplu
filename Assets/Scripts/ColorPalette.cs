@@ -1,18 +1,17 @@
 using UnityEngine;
 
-// This line allows you to right-click in your Project window to create the file
 [CreateAssetMenu(fileName = "NewColorPalette", menuName = "Color Palette")]
 public class ColorPalette : ScriptableObject
 {
     public enum PaletteColor { Color1, Color2, Color3, Color4 }
 
     [Header("Global Color Pickers")]
-    public Color color1 = Color.red;
-    public Color color2 = Color.green;
-    public Color color3 = Color.blue;
-    public Color color4 = Color.yellow;
+    public static Color color1 = Color.red;
+    public static Color color2 = Color.green;
+    public static Color color3 = Color.blue;
+    public static Color color4 = Color.yellow;
 
-    public Color GetColor(PaletteColor slot)
+    public static Color GetColor(PaletteColor slot)
     {
         return slot switch
         {
