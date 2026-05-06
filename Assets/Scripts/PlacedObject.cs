@@ -13,8 +13,7 @@ public class PlacedObject : MonoBehaviour {
 
         return placedObject;
     }
-
-    private static PlacedObject _currentSelected;
+    
     private PlacedObjectTypeSO placedObjectTypeSO;
     private Vector2Int origin;
     private PlacedObjectTypeSO.Dir dir;
@@ -29,17 +28,6 @@ public class PlacedObject : MonoBehaviour {
 
     public PlacedObjectTypeSO.ObjectType GetObjectType() => placedObjectTypeSO.objectType;
 
-    
-
-    public static void DeselectCurrent()
-    {
-        _currentSelected = null;
-    }
-
-    public void DemolishSelf()
-    {
-        _currentSelected = null;
-    }
 
 
     public Vector2Int GetOrigin() => origin;

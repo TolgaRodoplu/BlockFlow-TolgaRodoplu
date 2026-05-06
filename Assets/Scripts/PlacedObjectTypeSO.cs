@@ -51,6 +51,18 @@ public class PlacedObjectTypeSO : ScriptableObject
         return maxY + 1;
     }
 
+    // Width and height in world/grid space after rotation.
+    // Left/Right are 90° rotations so they transpose the dimensions.
+    public int GetRotatedWidth(Dir dir)
+    {
+        return (dir == Dir.Left || dir == Dir.Right) ? GetCellsBoundsHeight() : GetCellsBoundsWidth();
+    }
+
+    public int GetRotatedHeight(Dir dir)
+    {
+        return (dir == Dir.Left || dir == Dir.Right) ? GetCellsBoundsWidth() : GetCellsBoundsHeight();
+    }
+
     public int GetRotationAngle(Dir dir)
     {
         switch (dir)
@@ -71,9 +83,9 @@ public class PlacedObjectTypeSO : ScriptableObject
         {
             default:
             case Dir.Down:  return new Vector2Int(0, 0);
-            case Dir.Left:  return new Vector2Int(0, W);
+            case Dir.Left:  return new Vector2Int(H, 0);
             case Dir.Up:    return new Vector2Int(W, H);
-            case Dir.Right: return new Vector2Int(H, 0);
+            case Dir.Right: return new Vector2Int(0, W);
         }
     }
 

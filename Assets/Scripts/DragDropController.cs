@@ -7,6 +7,8 @@ public class DragDropController : MonoBehaviour
     private Vector2Int originalOrigin;
     private Vector3 dragOffset;
     private Rigidbody dragRb;
+    private Vector2Int? checkVect = null;
+    public static event System.EventHandler<PlacedObject> OnPosChanged;
 
     private void Update()
     {
@@ -21,6 +23,14 @@ public class DragDropController : MonoBehaviour
         Vector3 target = GetMouseWorldPos() + dragOffset;
         target.z = 0f;
         dragRb.velocity = (target - dragRb.position) * followSpeed;
+
+        var newVect = GetValid();
+
+        if(newVect != null && newVect != originalOrigin && newVect != checkVect)
+        {
+            checkVect = newVect;
+            OnPosChanged?.Invoke(this, dragging);
+        }
     }
 
     private void TryBeginDrag()
@@ -29,7 +39,8 @@ public class DragDropController : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit)) return;
 
         PlacedObject po = hit.transform.GetComponentInParent<PlacedObject>();
-        if (po == null || po.GetObjectType() != PlacedObjectTypeSO.ObjectType.Block) return;
+        Block block = hit.transform.GetComponent<Block>();
+        if (po == null || block == null) return;
 
         dragging = po;
         originalOrigin = po.GetOrigin();
@@ -44,7 +55,8 @@ public class DragDropController : MonoBehaviour
         dragRb.constraints = RigidbodyConstraints.FreezePositionZ
                            | RigidbodyConstraints.FreezeRotationX
                            | RigidbodyConstraints.FreezeRotationY
-                           | RigidbodyConstraints.FreezeRotationZ;
+                           | RigidbodyConstraints.FreezeRotationZ
+                           | block.constarint;
     }
 
     private void EndDrag()
@@ -52,7 +64,15 @@ public class DragDropController : MonoBehaviour
         dragRb.velocity = Vector3.zero;
         Destroy(dragRb);
         dragRb = null;
+        checkVect = null;
+        var valid = GetValid();
 
+        GridController.Instance.PlaceExistingBlock(dragging, valid ?? originalOrigin);
+        dragging = null;
+    }
+
+    private Vector2Int? GetValid()
+    {
         PlacedObjectTypeSO type = dragging.GetPlacedObjectTypeSO();
         PlacedObjectTypeSO.Dir dir = dragging.GetDir();
         Vector2Int rotOffset = type.GetRotationOffset(dir);
@@ -65,8 +85,7 @@ public class DragDropController : MonoBehaviour
         Vector2Int? valid = GridController.Instance.GetNearestFreeOrigin(
             dragging.GetPlacedObjectTypeSO(), dropOrigin, dragging.GetDir());
 
-        GridController.Instance.PlaceExistingBlock(dragging, valid ?? originalOrigin);
-        dragging = null;
+        return valid;
     }
 
     private static Vector3 GetMouseWorldPos()

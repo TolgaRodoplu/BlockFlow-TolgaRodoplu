@@ -9,6 +9,7 @@ public class GridController : MonoBehaviour
     private Grid<GridObject> grid;
     [SerializeField] private Transform floorPrefab;
     [SerializeField] private PlacedObjectTypeSO[] placedObjectTypeSO;
+    [SerializeField] private ColorPalette colorPalette;
     private void Awake()
     {
         Instance = this;
@@ -24,15 +25,14 @@ public class GridController : MonoBehaviour
     {
         SpawnBlock(placedObjectTypeSO[0], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Down);
         SpawnBlock(placedObjectTypeSO[4], new Vector2Int(0, 0), PlacedObjectTypeSO.Dir.Down);
-        
-        SpawnBlock(placedObjectTypeSO[1], new Vector2Int(2, 3), PlacedObjectTypeSO.Dir.Down);
+        SpawnBlock(placedObjectTypeSO[1], new Vector2Int(2, 2), PlacedObjectTypeSO.Dir.Left);
         SpawnBlock(placedObjectTypeSO[3], new Vector2Int(0, 1), PlacedObjectTypeSO.Dir.Down);
+        SpawnBlock(placedObjectTypeSO[5], new Vector2Int(4, 0), PlacedObjectTypeSO.Dir.Right);
     }
 
     public void SpawnFloor(Vector3 pos)
     {
         Instantiate(floorPrefab, pos, Quaternion.identity, transform);
-
         Instantiate(floorPrefab, pos, Quaternion.identity, transform);
     }
 

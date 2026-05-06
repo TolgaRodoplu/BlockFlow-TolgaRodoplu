@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    //color enum
-    //isIced bool
-    //icedCounter int
-    //isAxised
-    //axis
+    ColorPalette.PaletteColor color = ColorPalette.PaletteColor.Color1;
+    bool isIced = false;
+    int icedCounter = 0;
+    public RigidbodyConstraints constarint {get; private set;}
+
+
+    void Start()
+    {
+        
+
+
+    }
 }
 
