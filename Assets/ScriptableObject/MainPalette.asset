@@ -16,3 +16,4 @@ MonoBehaviour:
   color2: {r: 0.46906376, g: 0, b: 1, a: 1}
   color3: {r: 0.1792453, g: 0.26860735, b: 0.7169812, a: 1}
   color4: {r: 1, g: 0.6303736, b: 0.015686274, a: 1}
+  iceTexture: {fileID: 2800000, guid: b81a48e8d45f8d34c910ef4ff57acad1, type: 3}

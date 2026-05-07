@@ -1,11 +1,16 @@
 using System;
 
 [Serializable]
-public class PlacedObjectEntry
+public class FloorEntry
 {
-    public string typeName;
     public int x;
     public int y;
+}
+
+[Serializable]
+public class PlacedObjectEntry : FloorEntry
+{
+    public string typeName;
     public string direction;
 }
 
@@ -27,6 +32,7 @@ public class LevelData
 {
     public int gridWidth;
     public int gridHeight;
+    public FloorEntry[] floors;
     public PlacedObjectEntry[] walls;
     public ColoredObjectEntry[] grinders;
     public BlockEntry[] blocks;

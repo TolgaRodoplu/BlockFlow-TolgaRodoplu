@@ -6,12 +6,13 @@ public class ColorPalette : ScriptableObject
     public enum PaletteColor { Color1, Color2, Color3, Color4 }
 
     [Header("Global Color Pickers")]
-    public static Color color1 = Color.red;
-    public static Color color2 = Color.green;
-    public static Color color3 = Color.blue;
-    public static Color color4 = Color.yellow;
+    public  Color color1 = Color.red;
+    public  Color color2 = Color.green;
+    public  Color color3 = Color.blue;
+    public Color color4 = Color.yellow;
+    public Texture2D iceTexture;
 
-    public static Color GetColor(PaletteColor slot)
+    public Color GetColor(PaletteColor slot)
     {
         return slot switch
         {

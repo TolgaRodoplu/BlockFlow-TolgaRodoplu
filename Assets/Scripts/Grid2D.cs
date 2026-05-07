@@ -33,8 +33,6 @@ public class Grid<TGridObject>
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
                 gridArray[x, y] = createGridObject(this, x, y);
-                
-                GridController.Instance.SpawnFloor(new Vector3(x, y));
             }
         }
 

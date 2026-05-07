@@ -46,6 +46,7 @@ public class DragDropController : MonoBehaviour
         PlacedObject po = hit.transform.GetComponentInParent<PlacedObject>();
         Block block = hit.transform.GetComponent<Block>();
         if (po == null || block == null) return;
+        if(block.isIced) return;
 
         dragging = po;
         dragOffset = po.transform.position - GetMouseWorldPos();
@@ -59,6 +60,7 @@ public class DragDropController : MonoBehaviour
                            | RigidbodyConstraints.FreezeRotationY
                            | RigidbodyConstraints.FreezeRotationZ
                            | block.constarint;
+        dragRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
     }
 
     private void EndDrag()

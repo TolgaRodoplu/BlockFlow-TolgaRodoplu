@@ -10,9 +10,11 @@ public class GridController : MonoBehaviour
     private Grid<GridObject> grid;
     [SerializeField] private Transform floorPrefab;
     [SerializeField] private PlacedObjectTypeSO[] placedObjectTypeSO;
-    [SerializeField] private ColorPalette colorPalette;
+    public ColorPalette colorPalette;
 
     private Dictionary<string, PlacedObjectTypeSO> soByName;
+
+    public static event Action OnBlockExit;
 
     private void Awake()
     {
@@ -35,6 +37,9 @@ public class GridController : MonoBehaviour
 
     public void LoadLevel(LevelData data)
     {
+        foreach (var e in data.floors ?? new FloorEntry[0])
+            SpawnFloor(grid.GetWorldPosition(e.x, e.y));
+
         foreach (var e in data.walls ?? new PlacedObjectEntry[0])
             SpawnFromEntry(e);
 
@@ -53,12 +58,15 @@ public class GridController : MonoBehaviour
             if (block == null) continue;
             if (!string.IsNullOrEmpty(e.color))
                 block.SetColor(ParsePaletteColor(e.color));
-            block.iceCounter = e.iceCounter;
+            block.SetIcedCounter(e.iceCounter);
             if (!string.IsNullOrEmpty(e.restrictedAxis))
                 block.SetConstraints((RigidbodyConstraints)Enum.Parse(typeof(RigidbodyConstraints), e.restrictedAxis));
         }
     }
-
+    public void BlockExit()
+    {
+        OnBlockExit?.Invoke();
+    }
     private PlacedObject SpawnFromEntry(PlacedObjectEntry e)
     {
         if (!soByName.TryGetValue(e.typeName, out PlacedObjectTypeSO so))

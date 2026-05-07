@@ -15,7 +15,7 @@ public class Grinder : MonoBehaviour
     public void SetColor(ColorPalette.PaletteColor paletteColor)
     {
         color = paletteColor;
-        transform.GetComponentInChildren<MeshRenderer>().material.color = ColorPalette.GetColor(color);
+        transform.GetComponentInChildren<MeshRenderer>().material.color = GridController.Instance.colorPalette.GetColor(color);
     }
 
 
@@ -64,6 +64,7 @@ public class Grinder : MonoBehaviour
 
         GridController.Instance.RemoveBlock(placedObject);
         placedObject.DestroySelf();
+        GridController.Instance.BlockExit();
         return;
     }
 
