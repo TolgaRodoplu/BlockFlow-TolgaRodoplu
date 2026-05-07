@@ -24,16 +24,31 @@ public class GridController : MonoBehaviour
         foreach (var so in placedObjectTypeSO)
             if (so != null) soByName[so.nameString] = so;
 
-        int gridWidth = 5;
-        int gridHeight = 5;
-        float cellSize = 1f;
-        grid = new Grid<GridObject>(gridWidth, gridHeight, cellSize, transform.position, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
-        Camera.main.transform.position = new Vector3(gridWidth / 2 * cellSize, gridHeight / 2 * cellSize, -10f);
+        ReinitGrid(5, 5);
     }
 
-    void Start()
+    public void ReinitGrid(int width, int height)
     {
+        float cellSize = 1f;
+        grid = new Grid<GridObject>(width, height, cellSize, transform.position, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
+        Camera.main.transform.position = new Vector3(width / 2f * cellSize, height / 2f * cellSize, -10f);
     }
+
+    public void ClearLevel()
+    {
+        foreach (var po in FindObjectsByType<PlacedObject>(FindObjectsSortMode.None))
+            Destroy(po.gameObject);
+
+        for (int i = transform.childCount - 1; i >= 0; i--)
+            Destroy(transform.GetChild(i).gameObject);
+
+        int w = grid.GetWidth();
+        int h = grid.GetHeight();
+        for (int x = 0; x < w; x++)
+            for (int y = 0; y < h; y++)
+                grid.GetGridObject(x, y)?.ClearPlacedObject();
+    }
+
 
     public void LoadLevel(LevelData data)
     {
@@ -85,7 +100,6 @@ public class GridController : MonoBehaviour
 
     public void SpawnFloor(Vector3 pos)
     {
-        Instantiate(floorPrefab, pos, Quaternion.identity, transform);
         Instantiate(floorPrefab, pos, Quaternion.identity, transform);
     }
 

@@ -28,7 +28,6 @@ public class Block : MonoBehaviour
     public void SetConstraints(RigidbodyConstraints c)
     {
         constarint = c;
-
         var dir = this.GetComponent<PlacedObject>().GetDir();
         if (dir == PlacedObjectTypeSO.Dir.Down || dir == PlacedObjectTypeSO.Dir.Up)
         {

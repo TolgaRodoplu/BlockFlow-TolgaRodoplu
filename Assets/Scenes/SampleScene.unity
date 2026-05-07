@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 945868045}
   - component: {fileID: 945868046}
   - component: {fileID: 945868047}
-  - component: {fileID: 945868048}
+  - component: {fileID: 945868049}
   m_Layer: 0
   m_Name: GridController
   m_TagString: Untagged
@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followSpeed: 20
---- !u!114 &945868048
+--- !u!114 &945868049
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,10 +506,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 945868044}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48e51fe152767f349806ab32695918bb, type: 3}
+  m_Script: {fileID: 11500000, guid: cb1e409f36daf204ebaa2775e45763df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelJson: {fileID: 4900000, guid: e2264e1aea33e1e4681e936de774d8a2, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -6,13 +6,6 @@ public class LevelLoader : MonoBehaviour
 
     void Start()
     {
-        if (levelJson == null)
-        {
-            Debug.LogWarning("LevelLoader: no level JSON assigned.");
-            return;
-        }
-
-        LevelData data = JsonUtility.FromJson<LevelData>(levelJson.text);
-        GridController.Instance.LoadLevel(data);
+        // loading is handled by LevelManager
     }
 }

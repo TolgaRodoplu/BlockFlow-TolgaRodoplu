@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class DragDropController : MonoBehaviour
 {
+    
     [SerializeField] private float followSpeed = 20f;
     private PlacedObject dragging;
     private Vector3 dragOffset;

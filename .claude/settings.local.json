@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(Get-ChildItem -Path \"D:\\\\Unity Projects\\\\BlockFlow-TolgaRodoplu\" -Recurse -Filter \"*.cs\")",
-      "Bash(Select-Object FullName)"
-    ]
-  }
-}
