@@ -106,9 +106,10 @@
     { "typeName": "2X2", "x": 4, "y": 9, "direction": "Down", "color": "Color8", "iceCounter": 10, "restrictedAxis": "None" },
 
     
-    { "typeName": "2X1", "x": 5, "y": 1, "direction": "Down", "color": "Color9", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "2X1", "x": 3, "y": 1, "direction": "Down", "color": "Color9", "iceCounter": 0, "restrictedAxis": "None" },
 
-    { "typeName": "2X1", "x": 3, "y": 1, "direction": "Down", "color": "Color10", "iceCounter": 0, "restrictedAxis": "None" }
+    { "typeName": "2X1", "x": 5, "y": 1, "direction": "Down", "color": "Color10", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "2X1", "x": 2, "y": 12, "direction": "Down", "color": "Color10", "iceCounter": 0, "restrictedAxis": "None" }
     
   ],
   "seconds":60

@@ -121,6 +121,20 @@ public class Grinder : MonoBehaviour
         }
 
 
+        int bMinX = blockPositions.Min(v => v.x);
+        int bMaxX = blockPositions.Max(v => v.x);
+        int bMinY = blockPositions.Min(v => v.y);
+        int bMaxY = blockPositions.Max(v => v.y);
+        for (int bx = bMinX; bx <= bMaxX; bx++)
+        {
+            for (int by = bMinY; by <= bMaxY; by++)
+            {
+                Vector2Int cell = new Vector2Int(bx, by);
+                if (!blockPositions.Contains(cell) && GridController.Instance.IsCellOccupied(bx, by))
+                    return;
+            }
+        }
+
         Debug.Log("Fills");
         this.GetComponentInChildren<Animator>().Play("Grind");
         particle.Play();

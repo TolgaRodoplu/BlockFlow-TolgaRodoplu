@@ -147,6 +147,12 @@ public class GridController : MonoBehaviour
             grid.GetGridObject(cell.x, cell.y)?.SetPlacedObject(block);
     }
 
+    public bool IsCellOccupied(int x, int y)
+    {
+        GridObject go = grid.GetGridObject(x, y);
+        return go != null && go.isOccupied();
+    }
+
     public bool CanPlaceAt(PlacedObjectTypeSO type, Vector2Int origin, PlacedObjectTypeSO.Dir dir)
     {
         List<Vector2Int> cells = type.GetGridPositionList(origin, dir);
