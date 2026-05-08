@@ -17,6 +17,8 @@ public class Block : MonoBehaviour
     void Start()
     {
         SetMat();
+        if (isIced && iceText != null)
+            iceText.transform.rotation = Quaternion.identity;
     }
 
     public void PickedUp()

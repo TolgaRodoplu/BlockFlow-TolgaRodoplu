@@ -1,21 +1,56 @@
 {
   "gridWidth": 5,
-  "gridHeight": 5,
+  "gridHeight": 9,
   "floors": [
-    {"x": 1, "y": 0}, {"x": 2, "y": 0}, {"x": 3, "y": 0}, {"x": 4, "y": 0},
-    {"x": 0, "y": 1}, {"x": 1, "y": 1}, {"x": 2, "y": 1}, {"x": 3, "y": 1}, {"x": 4, "y": 1},
-    {"x": 0, "y": 2}, {"x": 1, "y": 2}, {"x": 2, "y": 2}, {"x": 3, "y": 2}, {"x": 4, "y": 2},
-    {"x": 0, "y": 3}, {"x": 1, "y": 3}, {"x": 2, "y": 3}, {"x": 3, "y": 3}, {"x": 4, "y": 3},
-    {"x": 0, "y": 4}, {"x": 1, "y": 4}, {"x": 2, "y": 4}, {"x": 3, "y": 4}, {"x": 4, "y": 4}
+    {"x": 1, "y": 1}, {"x": 2, "y": 1}, {"x": 3, "y": 1},
+    {"x": 1, "y": 2}, {"x": 2, "y": 2}, {"x": 3, "y": 2},
+    {"x": 1, "y": 3}, {"x": 2, "y": 3}, {"x": 3, "y": 3},
+    {"x": 1, "y": 4}, {"x": 2, "y": 4}, {"x": 3, "y": 4},
+    {"x": 1, "y": 5}, {"x": 2, "y": 5}, {"x": 3, "y": 5},
+    {"x": 1, "y": 6}, {"x": 2, "y": 6}, {"x": 3, "y": 6},
+    {"x": 1, "y": 7}, {"x": 2, "y": 7}, {"x": 3, "y": 7}
+    
   ],
-  "walls": [],
+  "walls": [
+    { "typeName": "WallCorner", "x": 0, "y": 0, "direction": "Down"},
+    { "typeName": "Wall", "x": 0, "y": 1, "direction": "Down"},
+    { "typeName": "Wall", "x": 0, "y": 5, "direction": "Down"},
+    { "typeName": "Wall", "x": 0, "y": 6, "direction": "Down"},
+    { "typeName": "Wall", "x": 0, "y": 7, "direction": "Down"},
+
+    { "typeName": "WallCorner", "x": 0, "y": 8, "direction": "Right"},
+    { "typeName": "Wall", "x": 1, "y": 8, "direction": "Right"},
+    { "typeName": "Wall", "x": 2, "y": 8, "direction": "Right"},
+    { "typeName": "Wall", "x": 3, "y": 8, "direction": "Right"},
+
+    { "typeName": "WallCorner", "x": 4, "y": 8, "direction": "Up"},
+    { "typeName": "Wall", "x": 4, "y": 1, "direction": "Up"},
+    { "typeName": "Wall", "x": 4, "y": 2, "direction": "Up"},
+    { "typeName": "Wall", "x": 4, "y": 3, "direction": "Up"},
+    { "typeName": "Wall", "x": 4, "y": 7, "direction": "Up"},
+
+    { "typeName": "WallCorner", "x": 4, "y": 0, "direction": "Left"},
+    { "typeName": "Wall", "x": 1, "y": 0, "direction": "Left"},
+    { "typeName": "Wall", "x": 2, "y": 0, "direction": "Left"},
+    { "typeName": "Wall", "x": 3, "y": 0, "direction": "Left"}
+  ],
   "grinders": [
-    { "typeName": "Grinder1X", "x": 4, "y": 0, "direction": "Left", "color": "Color1" },
-    { "typeName": "Grinder3X", "x": 0, "y": 2, "direction": "Down", "color": "Color2" }
+    { "typeName": "Grinder1X", "x": 0, "y": 2, "direction": "Down", "color": "Color1" },
+    { "typeName": "Grinder1X", "x": 0, "y": 3, "direction": "Down", "color": "Color2" },
+    { "typeName": "Grinder1X", "x": 0, "y": 4, "direction": "Down", "color": "Color3" },
+    
+
+    { "typeName": "Grinder1X", "x": 4, "y": 4, "direction": "Up", "color": "Color4" }, 
+    { "typeName": "Grinder1X", "x": 4, "y": 5, "direction": "Up", "color": "Color5" }, 
+    { "typeName": "Grinder1X", "x": 4, "y": 6, "direction": "Up", "color": "Color6" }
   ],
   "blocks": [
-    { "typeName": "SingleBlock", "x": 2, "y": 2, "direction": "Down", "color": "Color1", "iceCounter": 0, "restrictedAxis": "None" },
-    { "typeName": "TBlock",      "x": 2, "y": 2, "direction": "Left", "color": "Color2", "iceCounter": 0, "restrictedAxis": "None" }
+    { "typeName": "3X1", "x": 1, "y": 2, "direction": "Down", "color": "Color6", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "3X1", "x": 1, "y": 3, "direction": "Down", "color": "Color4", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "3X1", "x": 1, "y": 4, "direction": "Down", "color": "Color5", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "3X1", "x": 1, "y": 5, "direction": "Down", "color": "Color3", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "3X1", "x": 1, "y": 6, "direction": "Down", "color": "Color2", "iceCounter": 0, "restrictedAxis": "None" },
+    { "typeName": "3X1", "x": 1, "y": 7, "direction": "Down", "color": "Color1", "iceCounter": 5, "restrictedAxis": "None" }
   ],
   "seconds":60
 }

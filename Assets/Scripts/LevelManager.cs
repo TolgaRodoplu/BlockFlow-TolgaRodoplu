@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour
 
     public void StartGame()
     {
-        LoadLevel(1);
+        LoadLevel(5);
     }
 
     private void OnDestroy()

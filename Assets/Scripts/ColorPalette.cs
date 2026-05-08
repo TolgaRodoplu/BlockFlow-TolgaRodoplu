@@ -29,9 +29,9 @@ public class ColorPalette : ScriptableObject
             PaletteColor.Color5 => color5,
             PaletteColor.Color6 => color6,
             PaletteColor.Color7 => color7,
-            PaletteColor.Color8 => color7,
-            PaletteColor.Color9 => color7,
-            PaletteColor.Color10 => color7,
+            PaletteColor.Color8 => color8,
+            PaletteColor.Color9 => color9,
+            PaletteColor.Color10 => color10,
             _ => Color.white
         };
     }

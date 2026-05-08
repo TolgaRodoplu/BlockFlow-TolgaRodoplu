@@ -32,14 +32,11 @@ public class GridController : MonoBehaviour
     {
         float cellSize = 1f;
         grid = new Grid<GridObject>(width, height, cellSize, transform.position, (Grid<GridObject> g, int x, int y) => new GridObject(g, x, y));
-        Camera.main.transform.position = new Vector3(width / 2f * cellSize, height / 2f * cellSize, -10f);
+        Camera.main.transform.position = new Vector3(width / 2f * cellSize, height / 2f * cellSize, Mathf.Max(width, height) * -1.25f);
     }
 
     public void ClearLevel()
     {
-        foreach (var po in FindObjectsByType<PlacedObject>(FindObjectsSortMode.None))
-            Destroy(po.gameObject);
-
         for (int i = transform.childCount - 1; i >= 0; i--)
             Destroy(transform.GetChild(i).gameObject);
 

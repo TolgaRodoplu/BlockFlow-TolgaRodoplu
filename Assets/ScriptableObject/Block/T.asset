@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fdea6bcb9aa64f4b9d7e81d50547d95, type: 3}
   m_Name: T
   m_EditorClassIdentifier: 
-  nameString: TBlock
+  nameString: T
   prefab: {fileID: 1202621383421430551, guid: c4e588e4954c3ee4bad464d28e8016b1, type: 3}
   objectType: 0
   width: 1

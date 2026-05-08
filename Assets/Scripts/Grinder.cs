@@ -57,10 +57,24 @@ public class Grinder : MonoBehaviour
         PlacedObject grinderPO = GetComponent<PlacedObject>();
         Vector2Int grinderOrigin = grinderPO.GetOrigin();
         PlacedObjectTypeSO.Dir grinderDir = grinderPO.GetDir();
+        PlacedObjectTypeSO grinderSO = grinderPO.GetPlacedObjectTypeSO();
+        int W = grinderSO.GetRotatedWidth(PlacedObjectTypeSO.Dir.Down);
+        int H = grinderSO.GetRotatedHeight(PlacedObjectTypeSO.Dir.Down);
         Debug.Log("size matches1");
         List<Vector2Int> absoluteEntryCells = new List<Vector2Int>();
         foreach (Vector2Int cell in entryCells)
-            absoluteEntryCells.Add(grinderOrigin + PlacedObjectTypeSO.RotateVector(cell, grinderDir));
+        {
+            Vector2Int rotated;
+            switch (grinderDir)
+            {
+                default:
+                case PlacedObjectTypeSO.Dir.Down:  rotated = cell; break;
+                case PlacedObjectTypeSO.Dir.Left:  rotated = new Vector2Int(H - 1 - cell.y, cell.x); break;
+                case PlacedObjectTypeSO.Dir.Up:    rotated = new Vector2Int(W - 1 - cell.x, H - 1 - cell.y); break;
+                case PlacedObjectTypeSO.Dir.Right: rotated = new Vector2Int(cell.y, W - 1 - cell.x); break;
+            }
+            absoluteEntryCells.Add(grinderOrigin + rotated);
+        }
 
         bool isOk = false;
         List<Vector2Int> blockPositions = placedObject.GetGridPositionList();
@@ -123,7 +137,8 @@ public class Grinder : MonoBehaviour
         DragDropController.instance.EndDrag();
         GameObject copy = Instantiate(placedObject.gameObject,
                                       placedObject.transform.position,
-                                      placedObject.transform.rotation);
+                                      placedObject.transform.rotation,
+                                      GridController.Instance.transform);
         Destroy(copy.GetComponent<Block>());
         Destroy(copy.GetComponent<PlacedObject>());
         foreach (var col in copy.GetComponentsInChildren<Collider>())

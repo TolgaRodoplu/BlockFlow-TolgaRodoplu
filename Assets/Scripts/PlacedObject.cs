@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlacedObject : MonoBehaviour {
 
     public static PlacedObject Create(Vector3 worldPosition, Vector2Int origin, PlacedObjectTypeSO.Dir dir, PlacedObjectTypeSO placedObjectTypeSO) {
-        Transform placedObjectTransform = Instantiate(placedObjectTypeSO.prefab, worldPosition, Quaternion.Euler(0, 0, placedObjectTypeSO.GetRotationAngle(dir)));
+        Transform placedObjectTransform = Instantiate(placedObjectTypeSO.prefab, worldPosition, Quaternion.Euler(0, 0, placedObjectTypeSO.GetRotationAngle(dir)), GridController.Instance.transform);
 
         PlacedObject placedObject = placedObjectTransform.GetComponent<PlacedObject>();
         placedObject.Setup(placedObjectTypeSO, origin, dir);
