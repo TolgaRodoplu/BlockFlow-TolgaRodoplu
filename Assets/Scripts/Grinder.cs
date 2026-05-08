@@ -35,12 +35,8 @@ public class Grinder : MonoBehaviour
     {
         if (!objectsToCheck.Contains(placedObject)) return;
 
-        Debug.Log("EnteredFunc");
-
         Block block = placedObject.GetComponent<Block>();
         if (block == null || block.color != color) return;
-
-        Debug.Log("isBlock and color matches");
 
         PlacedObject thisPlacedSO = GetComponent<PlacedObject>();
 
@@ -51,16 +47,12 @@ public class Grinder : MonoBehaviour
             (thisPlacedSO.GetDir() == PlacedObjectTypeSO.Dir.Left || thisPlacedSO.GetDir() == PlacedObjectTypeSO.Dir.Right) && (blockSO.GetRotatedWidth(blockDir) > requiredSize))
             return;
 
-        Debug.Log("size matches");
-
-
         PlacedObject grinderPO = GetComponent<PlacedObject>();
         Vector2Int grinderOrigin = grinderPO.GetOrigin();
         PlacedObjectTypeSO.Dir grinderDir = grinderPO.GetDir();
         PlacedObjectTypeSO grinderSO = grinderPO.GetPlacedObjectTypeSO();
         int W = grinderSO.GetRotatedWidth(PlacedObjectTypeSO.Dir.Down);
         int H = grinderSO.GetRotatedHeight(PlacedObjectTypeSO.Dir.Down);
-        Debug.Log("size matches1");
         List<Vector2Int> absoluteEntryCells = new List<Vector2Int>();
         foreach (Vector2Int cell in entryCells)
         {
@@ -78,7 +70,6 @@ public class Grinder : MonoBehaviour
 
         bool isOk = false;
         List<Vector2Int> blockPositions = placedObject.GetGridPositionList();
-        Debug.Log("size matches2");
 
         foreach (Vector2Int entryCell in absoluteEntryCells)
         {
@@ -88,10 +79,8 @@ public class Grinder : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("size matches3");
         if (!isOk) return;
 
-        Debug.Log("size matches4");
         if ((thisPlacedSO.GetDir() == PlacedObjectTypeSO.Dir.Down || thisPlacedSO.GetDir() == PlacedObjectTypeSO.Dir.Up))
         {
             int min = absoluteEntryCells.Min(v => v.y);
@@ -135,7 +124,6 @@ public class Grinder : MonoBehaviour
             }
         }
 
-        Debug.Log("Fills");
         this.GetComponentInChildren<Animator>().Play("Grind");
         particle.Play();
         SpawnEntryVisual(placedObject);

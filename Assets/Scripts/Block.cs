@@ -91,18 +91,13 @@ public class Block : MonoBehaviour
             mat.SetTexture("_BaseMap", GridController.Instance.colorPalette.iceTexture);
             mat.color = Color.white;
             GridController.OnBlockExit += UpdateIceCounter;
-            Debug.Log("Sa1");
         }
         else
         {
-            Debug.Log("Sa2");
             mat.SetTexture("_BaseMap", null);
-            Debug.Log("Sa3");
             mat.color = GridController.Instance.colorPalette.GetColor(color);
-            Debug.Log("Sa4");
             if(iceText != null)
                 Destroy(iceText.gameObject);
-                Debug.Log("Sa5");
             GridController.OnBlockExit -= UpdateIceCounter;
         }
     }

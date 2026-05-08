@@ -49,7 +49,6 @@ public class LevelManager : MonoBehaviour
 
         if (json == null)
         {
-            Debug.Log($"LevelManager: no Level_{index:D2}.json found — game complete.");
             OnGameComplated?.Invoke();
             return;
         }
