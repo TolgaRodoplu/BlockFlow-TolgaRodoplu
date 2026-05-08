@@ -77,7 +77,7 @@ public class Grinder : MonoBehaviour
         Debug.Log("size matches3");
         if (!isOk) return;
 
-
+        Debug.Log("size matches4");
         if ((thisPlacedSO.GetDir() == PlacedObjectTypeSO.Dir.Down || thisPlacedSO.GetDir() == PlacedObjectTypeSO.Dir.Up))
         {
             int min = absoluteEntryCells.Min(v => v.y);
@@ -112,6 +112,7 @@ public class Grinder : MonoBehaviour
         particle.Play();
         SpawnEntryVisual(placedObject);
         GridController.Instance.RemoveBlock(placedObject);
+        AudioManager.instance.PlaySoundByName("Grind");
         placedObject.DestroySelf();
         GridController.Instance.BlockExit();
         return;
@@ -130,25 +131,25 @@ public class Grinder : MonoBehaviour
 
         PlacedObjectTypeSO.Dir grinderDir = GetComponent<PlacedObject>().GetDir();
         Vector3 add = Vector3.zero;
-        if(grinderDir == PlacedObjectTypeSO.Dir.Down)
+        if (grinderDir == PlacedObjectTypeSO.Dir.Down)
         {
             add = new Vector3(-5f, 0f, 0f);
         }
-        else if(grinderDir == PlacedObjectTypeSO.Dir.Up)
+        else if (grinderDir == PlacedObjectTypeSO.Dir.Up)
         {
             add = new Vector3(5f, 0f, 0f);
         }
-        else if(grinderDir == PlacedObjectTypeSO.Dir.Left)
+        else if (grinderDir == PlacedObjectTypeSO.Dir.Left)
         {
             add = new Vector3(0f, -5f, 0f);
         }
-        else if(grinderDir == PlacedObjectTypeSO.Dir.Right)
+        else if (grinderDir == PlacedObjectTypeSO.Dir.Right)
         {
             add = new Vector3(0f, 5f, 0f);
         }
 
         Vector3 target = copy.transform.position + add;
-        StartCoroutine(MoveAndShrinkBlock(copy, copy.transform.position, target, 1f));
+        StartCoroutine(MoveBlock(copy, copy.transform.position, target, 1f));
     }
 
     void OnTriggerEnter(Collider other)
@@ -160,8 +161,9 @@ public class Grinder : MonoBehaviour
         objectsToCheck.Add(block.GetComponent<PlacedObject>());
     }
 
-    private IEnumerator MoveAndShrinkBlock(GameObject copy, Vector3 snapPos, Vector3 targetPos, float duration)
+    private IEnumerator MoveBlock(GameObject copy, Vector3 snapPos, Vector3 targetPos, float duration)
     {
+
         copy.transform.position = snapPos;
         Vector3 originalScale = copy.transform.localScale;
         float elapsed = 0f;

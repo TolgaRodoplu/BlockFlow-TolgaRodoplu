@@ -13,6 +13,7 @@ public class GridController : MonoBehaviour
     public ColorPalette colorPalette;
 
     private Dictionary<string, PlacedObjectTypeSO> soByName;
+    private List<Transform> temp = new List<Transform>();
 
     public static event Action OnBlockExit;
 

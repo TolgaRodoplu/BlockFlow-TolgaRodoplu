@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fdea6bcb9aa64f4b9d7e81d50547d95, type: 3}
-  m_Name: SingleBlock
+  m_Name: 3x1
   m_EditorClassIdentifier: 
-  nameString: SingleBlock
-  prefab: {fileID: 1202621383421430551, guid: ef1776ca010a5ed4d9bd49b806492039, type: 3}
+  nameString: 3X1
+  prefab: {fileID: 1202621383421430551, guid: 534c0203a927d63409f27917afee9ae0, type: 3}
+  objectType: 0
   width: 1
   height: 1
   cells:
   - {x: 0, y: 0}
+  - {x: 1, y: 0}
+  - {x: 2, y: 0}

@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fdea6bcb9aa64f4b9d7e81d50547d95, type: 3}
-  m_Name: LBlock
+  m_Name: SmallL
   m_EditorClassIdentifier: 
-  nameString: LBlock
-  prefab: {fileID: 1202621383421430551, guid: afcfd254fec1c6d4eae6315312c202da, type: 3}
+  nameString: SmallL
+  prefab: {fileID: 1202621383421430551, guid: 59ffbac6f8e109647b0f793449267c04, type: 3}
+  objectType: 0
   width: 1
   height: 1
   cells:
   - {x: 0, y: 0}
   - {x: 1, y: 0}
   - {x: 1, y: 1}
-  - {x: 1, y: 2}

@@ -552,8 +552,8 @@ Camera:
   m_GameObject: {fileID: 330585543}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.81568635, g: 0.87843144, b: 0.9803922, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1608,13 +1608,21 @@ MonoBehaviour:
     type: 3}
   placedObjectTypeSO:
   - {fileID: 11400000, guid: 6b7245bb7333c7241b99e2d156da9ab9, type: 2}
-  - {fileID: 11400000, guid: f8e6ce745efb0c34bbe5015f0357f3a8, type: 2}
-  - {fileID: 11400000, guid: ae05a758f313507428ccc5b9a8ee414d, type: 2}
-  - {fileID: 11400000, guid: e250da555bcbfc54eb76ceb056407055, type: 2}
-  - {fileID: 11400000, guid: f9de50b2226bc734e892099ae6985e18, type: 2}
+  - {fileID: 11400000, guid: a29e448dc1aa21646bc8dd0ebed5670b, type: 2}
+  - {fileID: 11400000, guid: 44558cbaf1a51b244921fe921b3c8b14, type: 2}
+  - {fileID: 11400000, guid: 28702bda11984944fb75dbcef5f75483, type: 2}
   - {fileID: 11400000, guid: 2011c229a3a2e5d498ef5e469d2c6a69, type: 2}
   - {fileID: 11400000, guid: 01f6b7af189f2a5459ce86bca45ba0fd, type: 2}
   - {fileID: 11400000, guid: c267b11d8b483074b814276a48d02658, type: 2}
+  - {fileID: 11400000, guid: ae05a758f313507428ccc5b9a8ee414d, type: 2}
+  - {fileID: 11400000, guid: 8ed4391723defde4194523a239be5930, type: 2}
+  - {fileID: 11400000, guid: 4d4df90539398ad43b00db2a4d27b900, type: 2}
+  - {fileID: 11400000, guid: 53f9664eb71898e4c82990c2e59ea075, type: 2}
+  - {fileID: 11400000, guid: 7a3961753e879ae4fa51c2329b148204, type: 2}
+  - {fileID: 11400000, guid: f8e6ce745efb0c34bbe5015f0357f3a8, type: 2}
+  - {fileID: 11400000, guid: e250da555bcbfc54eb76ceb056407055, type: 2}
+  - {fileID: 11400000, guid: f9de50b2226bc734e892099ae6985e18, type: 2}
+  - {fileID: 11400000, guid: 29e1eb8232977d140a5eaac9008b29d3, type: 2}
   colorPalette: {fileID: 11400000, guid: 86642a88c2aab884d99dfa21fcca119f, type: 2}
 --- !u!1 &961910334
 GameObject:
@@ -2286,6 +2294,12 @@ MonoBehaviour:
     loop: 0
     soundMixerType: {fileID: -2835356257507078393, guid: 10edd1ce5b94c7541a872ef20c7b17c7,
       type: 2}
+  - _name: Grind
+    audioClip: {fileID: 8300000, guid: a0a86b6ae670b724ba1c91f62f3e8598, type: 3}
+    volume: 1
+    loop: 0
+    soundMixerType: {fileID: -2835356257507078393, guid: 10edd1ce5b94c7541a872ef20c7b17c7,
+      type: 2}
   mainMixer: {fileID: 24100000, guid: 10edd1ce5b94c7541a872ef20c7b17c7, type: 2}
   audioSourcePrefab: {fileID: -662680377248265086, guid: c3207fd346930f04cb84b7e21ff77d82,
     type: 3}
@@ -2513,7 +2527,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
