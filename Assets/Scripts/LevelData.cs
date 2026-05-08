@@ -36,4 +36,5 @@ public class LevelData
     public PlacedObjectEntry[] walls;
     public ColoredObjectEntry[] grinders;
     public BlockEntry[] blocks;
+    public int seconds;
 }

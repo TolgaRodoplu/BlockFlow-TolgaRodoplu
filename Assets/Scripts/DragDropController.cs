@@ -1,24 +1,38 @@
 using UnityEngine;
-
+using System;
 public class DragDropController : MonoBehaviour
 {
-    
+    public static DragDropController instance;
+    private bool isActive = true;
     [SerializeField] private float followSpeed = 20f;
     private PlacedObject dragging;
     private Vector3 dragOffset;
     private Rigidbody dragRb;
     private Vector2Int? checkVect = null;
-    public static event System.EventHandler<PlacedObject> OnPosChanged;
+    public static event Action<PlacedObject> OnPosChanged;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    void Start()
+    {
+        LevelManager.OnLevelStarted += Activate;
+        LevelManager.OnLevelComplete += Deactivate;
+        LevelManager.OnLevelFailed += Deactivate;
+    }
 
     private void Update()
     {
+        if (!isActive) return;
         if (Input.GetMouseButtonDown(0)) TryBeginDrag();
         else if (Input.GetMouseButtonUp(0) && dragging != null) EndDrag();
     }
 
     private void FixedUpdate()
     {
-        if (dragRb == null) return;
+        if (dragRb == null || !isActive) return;
 
         Vector3 target = GetMouseWorldPos() + dragOffset;
         target.z = 0f;
@@ -35,7 +49,7 @@ public class DragDropController : MonoBehaviour
         if (targetOrigin != checkVect)
         {
             checkVect = targetOrigin;
-            OnPosChanged?.Invoke(this, dragging);
+            OnPosChanged?.Invoke(dragging);
         }
     }
 
@@ -47,7 +61,7 @@ public class DragDropController : MonoBehaviour
         PlacedObject po = hit.transform.GetComponentInParent<PlacedObject>();
         Block block = hit.transform.GetComponent<Block>();
         if (po == null || block == null) return;
-        if(block.isIced) return;
+        if (block.isIced) return;
 
         dragging = po;
         dragOffset = po.transform.position - GetMouseWorldPos();
@@ -62,17 +76,33 @@ public class DragDropController : MonoBehaviour
                            | RigidbodyConstraints.FreezeRotationZ
                            | block.constarint;
         dragRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        AudioManager.instance.PlaySoundByName("PickUp");
+        block.PickedUp();
     }
 
-    private void EndDrag()
+    public void EndDrag()
     {
+        if (dragging == false) return;
         dragRb.velocity = Vector3.zero;
         Destroy(dragRb);
         dragRb = null;
         checkVect = null;
+        dragging.GetComponent<Block>().PutDown();
 
         GridController.Instance.PlaceExistingBlock(dragging, dragging.GetOrigin());
+        AudioManager.instance.PlaySoundByName("PutDown");
         dragging = null;
+    }
+
+    private void Activate()
+    {
+        isActive = true;
+    }
+    private void Deactivate()
+    {
+        EndDrag();
+
+        isActive = false;
     }
 
     private Vector2Int? GetValid()

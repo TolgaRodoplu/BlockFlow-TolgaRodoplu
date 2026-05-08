@@ -17,5 +17,6 @@
   ],
   "blocks": [
     { "typeName": "SingleBlock", "x": 2, "y": 2, "direction": "Down", "color": "Color1", "iceCounter": 0, "restrictedAxis": "None" }
-  ]
+  ],
+  "seconds":60
 }

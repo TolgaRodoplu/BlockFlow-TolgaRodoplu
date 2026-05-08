@@ -19,6 +19,14 @@ public class Block : MonoBehaviour
         SetMat();
     }
 
+    public void PickedUp()
+    {
+        mesh.transform.position += new Vector3(0f, 0f, -1f);
+    }
+    public void PutDown()
+    {
+        mesh.transform.position += new Vector3(0f, 0f, 1f);
+    }
 
     public void SetColor(ColorPalette.PaletteColor paletteColor)
     {
@@ -65,7 +73,7 @@ public class Block : MonoBehaviour
     private void UpdateIceCounter()
     {
         iceCounter--;
-
+        AudioManager.instance.PlaySoundByName("Ice");
         if (!isIced)
             SetMat();
         else if(iceText != null)
